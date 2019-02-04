@@ -27,6 +27,7 @@
     "stylelint": "^9.10.1",
     "stylelint-config-standard": "^18.2.0",
     "stylelint-scss": "^3.5.2",
+    "terser": "^3.14.1",
     "vue-template-compiler": "^2.5.21"
   }
 }
