@@ -1,32 +1,40 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <sidebar :onClick="closeMobileMenu" :mobileMenuState="mobileMenuState" />
+    <navbar :onClick="openMobileMenu" />
+    <div :class="[mobileMenuState ? 'overlay--show': 'overlay']" v-on:click.prevent="closeMobileMenu" />
+    <main class="container">
+      <router-view/>
+    </main>
+    <custom-footer />
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2C3E50;
-}
+<script>
+import Sidebar from './components/Sidebar.vue';
+import Navbar from './components/Navbar.vue';
+import CustomFooter from './components/CustomFooter.vue';
 
-#nav {
-  padding: 30px;
+export default {
+  name: 'App',
+  components: {
+    Sidebar, Navbar, CustomFooter
+  },
+  data() {
+    return {
+      mobileMenuState: false
+    };
+  },
+  methods: {
+    openMobileMenu() {
+      this.mobileMenuState = true;
+      document.body.style.overflow = 'hidden';
+    },
 
-  a {
-    font-weight: bold;
-    color: #2C3E50;
-
-    &.router-link-exact-active {
-      color: #42B983;
+    closeMobileMenu() {
+      this.mobileMenuState = false;
+      document.body.style.overflow = 'visible';
     }
   }
-}
-</style>
+};
+</script>
