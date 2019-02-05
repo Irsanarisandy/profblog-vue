@@ -1,16 +1,5 @@
 <template>
   <div v-if="resp !== {}" id="blog-home">
-    <div class="posts__pages" v-for="(post, index) in resp.data" :key="post.slug + '_' + index">
-      <router-link :to="'/post/' + post.slug">
-        <h1>{{ post.title }}</h1>
-      </router-link>
-      <img v-if="post.featured_image" :src="post.featured_image">
-      <p v-if="post.author" class="posts__info">
-        {{ post.author.first_name }} {{ post.author.last_name }}
-      </p>
-      <p class="posts__info">{{ getDateTime(post.created) }}</p>
-      <p class="posts__info">{{ post.summary }}</p>
-    </div>
     <div v-if="checkPageNavigation()" class="d-flex justify-content-between posts__navigation">
       <router-link v-if="resp.meta.previous_page" :to="'/p/' + resp.meta.previous_page">
         <span class="posts__navigation-text">Previous Page</span>
@@ -18,6 +7,17 @@
       <router-link v-if="resp.meta.next_page" :to="'/p/' + resp.meta.next_page">
         <span class="posts__navigation-text">Next Page</span>
       </router-link>
+    </div>
+    <div class="posts__pages" v-for="(post, index) in resp.data" :key="post.slug + '_' + index">
+      <router-link :to="'/post/' + post.slug">
+        <h1>{{ post.title }}</h1>
+      </router-link>
+      <img v-if="post.featured_image" :src="post.featured_image">
+      <p class="posts__info">
+        {{ post.author.first_name }} {{ post.author.last_name }}
+      </p>
+      <p class="posts__info">{{ getDateTime(post.created) }}</p>
+      <p class="posts__info">{{ post.summary }}</p>
     </div>
   </div>
   <p v-else>Loading...</p>

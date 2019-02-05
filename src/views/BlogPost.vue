@@ -1,7 +1,7 @@
 <template>
   <div v-if="post !== {}" id="blog-post">
     <h1>{{ post.title }}</h1>
-    <p v-if="post.author">{{ post.author.first_name }} {{ post.author.last_name }}</p>
+    <p>{{ post.author.first_name }} {{ post.author.last_name }}</p>
     <p>{{ getDateTime(post.created) }}</p>
     <div v-html="post.body"></div>
   </div>
