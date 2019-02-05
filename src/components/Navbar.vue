@@ -4,7 +4,7 @@
       <router-link class="navbar-brand" exact to="/">
         <span>ProfBlog</span>
       </router-link>
-      <button class="navbar-toggler" v-on:click.prevent="onClick"
+      <button class="navbar-toggler" @click.prevent="onClick"
         type="button" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon" />
       </button>

@@ -2,7 +2,7 @@
   <div id="app">
     <sidebar :onClick="closeMobileMenu" :mobileMenuState="mobileMenuState" />
     <navbar :onClick="openMobileMenu" />
-    <div :class="[mobileMenuState ? 'overlay--show': 'overlay']" v-on:click.prevent="closeMobileMenu" />
+    <div :class="[mobileMenuState ? 'overlay--show': 'overlay']" @click.prevent="closeMobileMenu" />
     <main class="container">
       <router-view/>
     </main>

@@ -8,16 +8,24 @@
         <span class="posts__navigation-text">Next Page</span>
       </router-link>
     </div>
-    <div class="posts__pages" v-for="(post, index) in resp.data" :key="post.slug + '_' + index">
-      <router-link :to="'/post/' + post.slug">
-        <h1>{{ post.title }}</h1>
-      </router-link>
-      <img v-if="post.featured_image" :src="post.featured_image">
-      <p class="posts__info">
-        {{ post.author.first_name }} {{ post.author.last_name }}
-      </p>
-      <p class="posts__info">{{ getDateTime(post.created) }}</p>
-      <p class="posts__info">{{ post.summary }}</p>
+    <div :class="['posts__pages', {
+      'posts__pages--with-image': post.featured_image
+    }]" v-for="(post, index) in resp.data" :key="post.slug + '_' + index">
+      <div v-if="post.featured_image" class="posts__image-block">
+        <img :src="post.featured_image" :alt="post.slug" />
+      </div>
+      <div :class="['posts__content', {
+        'posts__content--with-image': post.featured_image
+      }]">
+        <router-link :to="'/post/' + post.slug">
+          <h1>{{ post.title }}</h1>
+        </router-link>
+        <p class="posts__info">
+          {{ post.author.first_name }} {{ post.author.last_name }}
+        </p>
+        <p class="posts__info">{{ getDateTime(post.created) }}</p>
+        <p class="posts__info">{{ post.summary }}</p>
+      </div>
     </div>
   </div>
   <p v-else>Loading...</p>
