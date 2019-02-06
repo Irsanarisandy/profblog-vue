@@ -9,6 +9,19 @@
 
 <script>
 export default {
-  name: 'home'
+  name: 'home',
+  head: {
+    link() {
+      return [
+        { rel: 'canonical', href: document.location.href, id: 'canonical' }
+      ];
+    },
+    meta() {
+      return [
+        { property: 'og:url', content: document.location.href, id: 'og-url' },
+        { name: 'twitter:url', content: document.location.href, id: 'twitter-url' }
+      ];
+    }
+  }
 };
 </script>

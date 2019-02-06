@@ -1,12 +1,14 @@
 import Vue from 'vue';
-import Router from 'vue-router';
+import VueHead from 'vue-head';
+import VueRouter from 'vue-router';
 import Home from './views/Home.vue';
 import BlogHome from './views/BlogHome.vue';
 import BlogPost from './views/BlogPost.vue';
 
-Vue.use(Router);
+Vue.use(VueHead);
+Vue.use(VueRouter);
 
-export default new Router({
+export default new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [

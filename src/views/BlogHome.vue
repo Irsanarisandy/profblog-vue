@@ -1,5 +1,6 @@
 <template>
-  <div v-if="resp !== {}" id="blog-home">
+  <p v-if="resp.isEmpty">Loading...</p>
+  <div v-else id="blog-home">
     <div v-if="checkPageNavigation()" class="d-flex justify-content-between posts__navigation">
       <router-link v-if="resp.meta.previous_page" :to="'/p/' + resp.meta.previous_page">
         <span class="posts__navigation-text">Previous Page</span>
@@ -20,7 +21,7 @@
         <router-link :to="'/post/' + post.slug">
           <h1>{{ post.title }}</h1>
         </router-link>
-        <p class="posts__info">
+        <p v-if="post.author" class="posts__info">
           {{ post.author.first_name }} {{ post.author.last_name }}
         </p>
         <p class="posts__info">{{ getDateTime(post.created) }}</p>
@@ -28,7 +29,6 @@
       </div>
     </div>
   </div>
-  <p v-else>Loading...</p>
 </template>
 
 <script>
@@ -41,8 +41,28 @@ export default {
   name: 'blog-home',
   data() {
     return {
-      resp: {}
+      resp: {
+        isEmpty: true
+      }
     };
+  },
+  head: {
+    title: {
+      inner: 'ProfBlog (Vue)',
+      separator: '-',
+      complement: 'Blog Posts'
+    },
+    link() {
+      return [
+        { rel: 'canonical', href: document.location.href, id: 'canonical' }
+      ];
+    },
+    meta() {
+      return [
+        { property: 'og:url', content: document.location.href, id: 'og-url' },
+        { name: 'twitter:url', content: document.location.href, id: 'twitter-url' }
+      ];
+    }
   },
   methods: {
     getPosts() {
@@ -50,7 +70,7 @@ export default {
         page: 1,
         page_size: 10
       }).then((res) => {
-        this.resp = res.data;
+        this.resp = { isEmpty: false, ...res.data };
       }).catch((err) => console.error(err));
     },
     checkPageNavigation() {
