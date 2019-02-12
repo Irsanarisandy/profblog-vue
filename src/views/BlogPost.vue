@@ -3,7 +3,7 @@
   <div v-else id="blog-post">
     <h1>{{ post.title }}</h1>
     <p v-if="post.author">{{ post.author.first_name }} {{ post.author.last_name }}</p>
-    <p>{{ getDateTime(post.created) }}</p>
+    <p>{{ getDateTime(post.published) }}</p>
     <div v-html="post.body"></div>
   </div>
 </template>
@@ -71,7 +71,7 @@ export default {
       }).catch((err) => console.error(err));
     },
     getDateTime(currentPost) {
-      return Moment(currentPost).tz('Pacific/Auckland').format('Do MMM YYYY LT z');
+      return Moment(currentPost).tz('Pacific/Auckland').format('Do MMM YYYY z');
     }
   },
   mounted() {

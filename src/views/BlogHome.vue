@@ -24,7 +24,7 @@
         <p v-if="post.author" class="posts__info">
           {{ post.author.first_name }} {{ post.author.last_name }}
         </p>
-        <p class="posts__info">{{ getDateTime(post.created) }}</p>
+        <p class="posts__info">{{ getDateTime(post.published) }}</p>
         <p class="posts__info">{{ post.summary }}</p>
       </div>
     </div>
@@ -77,7 +77,7 @@ export default {
       return this.resp.meta && (this.resp.meta.previous_page || this.resp.meta.next_page);
     },
     getDateTime(currentPost) {
-      return Moment(currentPost).tz('Pacific/Auckland').format('Do MMM YYYY LT z');
+      return Moment(currentPost).tz('Pacific/Auckland').format('Do MMM YYYY z');
     }
   },
   mounted() {
